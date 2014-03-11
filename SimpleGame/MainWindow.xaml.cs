@@ -23,6 +23,19 @@ namespace SimpleGame
         public MainWindow()
         {
             InitializeComponent();
+            NewGame();
+        }
+
+        private void NewGame()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+            TextBlock newText = new TextBlock();
+            newText.Text = ("Big Button " + i);
+            Button newButton = new Button();
+            newButton.Content = newText;
+            GameGrid.Children.Add(newButton);
+            }
         }
     }
 }

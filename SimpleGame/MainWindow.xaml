@@ -2,7 +2,37 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    
+    <DockPanel>
+        <ToolBarPanel DockPanel.Dock="Top">
+            <ToolBar>
+                <Button>
+                    <TextBlock Text="New Game" Margin="5,0" />   
+                </Button>
+                <Separator />
+                <Button>
+                    <TextBlock Text="Very Easy" Margin="5,0" />
+                </Button>
+                <Button>
+                    <TextBlock Text="Easy" Margin="5,0" />
+                </Button>
+                <Button>
+                    <TextBlock Text="Medium" Margin="5,0" />
+                </Button>
+                <Button>
+                    <TextBlock Text="Hard" Margin="5,0" />
+                </Button>
+                <Button>
+                    <TextBlock Text="Very Hard" Margin="5,0" />
+                </Button>
+                
+            </ToolBar>
+        </ToolBarPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="GameStatus" Text="0/0" />
+            </StatusBarItem>
+        </StatusBar>
+        <UniformGrid Name="GameGrid" />
+    </DockPanel>
 </Window>
