@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,6 +22,8 @@ namespace SimpleGame
     public partial class MainWindow : Window
     {
         private int WinCondition = 9;
+        private int GridSize = 3;
+        private int MaxSize = 7;
         Style activeStyle;
         Style inactiveStyle;
         public MainWindow()
@@ -48,12 +51,12 @@ namespace SimpleGame
             //{
             //    //Make an routed eventhandler for the button
             //}
-            TextBlock newText = new TextBlock();
-            newText.Text = "";
-            foreach (var item in collection)
+            foreach (Button child in GameGrid.Children)
             {
-                
+                TextBlock tempBlock = (TextBlock)child.Content;
+                tempBlock.Text = "";
             }
+            GameStatus.Text = ("0/" + WinCondition);
         }
 
         private void VeryEasyGame()
@@ -63,7 +66,8 @@ namespace SimpleGame
             ButtonMedium.IsEnabled = true;
             ButtonHard.IsEnabled = true;
             ButtonVeryHard.IsEnabled = true;
-            WinCondition = 9;
+            GridSize = 3;
+            WinCondition = GridSize*GridSize;
             DisableEasy();
             NewGame();
         }
@@ -74,7 +78,8 @@ namespace SimpleGame
             ButtonMedium.IsEnabled = true;
             ButtonHard.IsEnabled = true;
             ButtonVeryHard.IsEnabled = true;
-            WinCondition = 16;
+            GridSize = 4;
+            WinCondition = GridSize * GridSize;
             EnableEasy();
             DisableMedium();
             NewGame();
@@ -86,7 +91,8 @@ namespace SimpleGame
             ButtonMedium.IsEnabled = false;
             ButtonHard.IsEnabled = true;
             ButtonVeryHard.IsEnabled = true;
-            WinCondition = 25;
+            GridSize = 5;
+            WinCondition = GridSize * GridSize;
             EnableMedium();
             DisableHard();
             NewGame();
@@ -98,7 +104,8 @@ namespace SimpleGame
             ButtonMedium.IsEnabled = true;
             ButtonHard.IsEnabled = false;
             ButtonVeryHard.IsEnabled = true;
-            WinCondition = 36;
+            GridSize = 6;
+            WinCondition = GridSize * GridSize;
             EnableHard();
             DisableVeryHard();
             NewGame();
@@ -110,7 +117,8 @@ namespace SimpleGame
             ButtonMedium.IsEnabled = true;
             ButtonHard.IsEnabled = true;
             ButtonVeryHard.IsEnabled = false;
-            WinCondition = 49;
+            GridSize = 7;
+            WinCondition = GridSize * GridSize;
             EnableVeryHard();
             NewGame();
         }
@@ -224,5 +232,90 @@ namespace SimpleGame
             Button65.Style = activeStyle;
             Button66.Style = activeStyle;
         }
+        private void ChangeTextBlock(int x, int y)
+        {
+            Button tempButton = (Button)GameGrid.Children[(y * MaxSize + x)];
+            TextBlock tempText = (TextBlock)tempButton.Content;
+            if (tempText.Text == "")
+                tempText.Text = "x";
+            else
+                tempText.Text = "";
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void Grid_Button_Click(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            UniformGrid tempGrid = (UniformGrid)sender;
+            object orgObject = e.OriginalSource;
+            int sourceButton = -1;
+            int x, y = -1;
+            for (int i = 0; i < tempGrid.Children.Count; i++)
+            {
+                if ((object)tempGrid.Children[i] == orgObject)
+                {
+                    sourceButton = i;
+                    break;
+                }
+            }
+            //y = sourceButton / GridSize;
+            //x = sourceButton % GridSize;
+            y = sourceButton / MaxSize;
+            x = sourceButton % MaxSize;
+            ChangeTextBlock(x, y);
+            if (x != 0) ChangeTextBlock(x - 1, y);
+            if (x != GridSize - 1) ChangeTextBlock(x + 1, y);
+            if (y != 0) ChangeTextBlock(x, y - 1);
+            if (y != GridSize - 1) ChangeTextBlock(x, y + 1);
+            //if (x != 0) ChangeTextBlock(x - 1, y);
+            //if (x != MaxSize - 1) ChangeTextBlock(x + 1, y);
+            //if (y != 0) ChangeTextBlock(x, y - 1);
+            //if (y != MaxSize - 1) ChangeTextBlock(x, y + 1);
+            Win();
+        }
+
+        private void Win()
+        {
+            int i = 0;
+            foreach (Button tempButton in GameGrid.Children)
+            {
+                TextBlock tempBlock = (TextBlock)tempButton.Content;
+                if (tempBlock.Text == "x") i++;
+            }
+            GameStatus.Text = i.ToString() + "/"+ WinCondition;
+            if (i == WinCondition)
+            {
+                MessageBox.Show("You won");
+                
+                
+            }
+        }
+        private void ButtonVeryEasy_Click(object sender, RoutedEventArgs e)
+        {
+            VeryEasyGame();
+        }
+
+        private void ButtonEasy_Click(object sender, RoutedEventArgs e)
+        {
+            EasyGame();
+        }
+
+        private void ButtonMedium_Click(object sender, RoutedEventArgs e)
+        {
+            MediumGame();
+        }
+
+        private void ButtonHard_Click(object sender, RoutedEventArgs e)
+        {
+            HardGame();
+        }
+
+        private void ButtonVeryHard_Click(object sender, RoutedEventArgs e)
+        {
+            VeryHardGame();
+        }
+        
     }
 }

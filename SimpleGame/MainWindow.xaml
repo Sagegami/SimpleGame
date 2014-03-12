@@ -17,19 +17,19 @@
                     <TextBlock Text="New Game" Margin="5,0" />   
                 </Button>
                 <Separator />
-                <Button Name="ButtonVeryEasy">
+                <Button Name="ButtonVeryEasy" Click="ButtonVeryEasy_Click">
                     <TextBlock Text="Very Easy" Margin="5,0" />
                 </Button>
-                <Button Name="ButtonEasy">
+                <Button Name="ButtonEasy" Click="ButtonEasy_Click">
                     <TextBlock Text="Easy" Margin="5,0" />
                 </Button>
-                <Button Name="ButtonMedium">
+                <Button Name="ButtonMedium" Click="ButtonMedium_Click">
                     <TextBlock Text="Medium" Margin="5,0" />
                 </Button>
-                <Button Name="ButtonHard">
+                <Button Name="ButtonHard" Click="ButtonHard_Click">
                     <TextBlock Text="Hard" Margin="5,0" />
                 </Button>
-                <Button Name="ButtonVeryHard">
+                <Button Name="ButtonVeryHard" Click="ButtonVeryHard_Click">
                     <TextBlock Text="Very Hard" Margin="5,0" />
                 </Button>
                 
@@ -40,8 +40,8 @@
                 <TextBlock Name="GameStatus" Text="0/0" />
             </StatusBarItem>
         </StatusBar>
-        <UniformGrid Name="GameGrid">
-            <Button Name="Button00" Style="{StaticResource StyleActive}">
+        <UniformGrid Name="GameGrid" ButtonBase.Click="Grid_Button_Click">
+            <Button Name="Button00" Style="{StaticResource StyleActive}" Click="Button_Click">
                 <TextBlock Name="TextBlock00" Text=""/>
             </Button>
             <Button Name="Button01" Style="{StaticResource StyleActive}">
