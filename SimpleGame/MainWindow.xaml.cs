@@ -58,7 +58,6 @@ namespace SimpleGame
             }
             GameStatus.Text = ("0/" + WinCondition);
         }
-
         private void VeryEasyGame()
         {
             ButtonVeryEasy.IsEnabled = false;
@@ -260,8 +259,6 @@ namespace SimpleGame
                     break;
                 }
             }
-            //y = sourceButton / GridSize;
-            //x = sourceButton % GridSize;
             y = sourceButton / MaxSize;
             x = sourceButton % MaxSize;
             ChangeTextBlock(x, y);
@@ -269,13 +266,8 @@ namespace SimpleGame
             if (x != GridSize - 1) ChangeTextBlock(x + 1, y);
             if (y != 0) ChangeTextBlock(x, y - 1);
             if (y != GridSize - 1) ChangeTextBlock(x, y + 1);
-            //if (x != 0) ChangeTextBlock(x - 1, y);
-            //if (x != MaxSize - 1) ChangeTextBlock(x + 1, y);
-            //if (y != 0) ChangeTextBlock(x, y - 1);
-            //if (y != MaxSize - 1) ChangeTextBlock(x, y + 1);
             Win();
         }
-
         private void Win()
         {
             int i = 0;
@@ -296,26 +288,25 @@ namespace SimpleGame
         {
             VeryEasyGame();
         }
-
         private void ButtonEasy_Click(object sender, RoutedEventArgs e)
         {
             EasyGame();
         }
-
         private void ButtonMedium_Click(object sender, RoutedEventArgs e)
         {
             MediumGame();
         }
-
         private void ButtonHard_Click(object sender, RoutedEventArgs e)
         {
             HardGame();
         }
-
         private void ButtonVeryHard_Click(object sender, RoutedEventArgs e)
         {
             VeryHardGame();
         }
-        
+        private void ButtonNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame();
+        }
     }
 }
